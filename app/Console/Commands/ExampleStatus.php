@@ -42,5 +42,15 @@ class ExampleStatus extends Command {
 		$status->key = 'cron';
 		$status->value = true;
 		$status->save();
+
+		\Queue::push(function ($job) {
+
+			$status = new Status;
+			$status->key = 'queue';
+			$status->value = true;
+			$status->save();
+
+			$job->delete();
+		});
 	}
 }
