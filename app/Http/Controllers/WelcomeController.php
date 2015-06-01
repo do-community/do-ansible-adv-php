@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use App\Status;
+
 class WelcomeController extends Controller {
 
 	/*
@@ -30,6 +32,12 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
+		try {
+			$status = Status::whereKey('queue')->first();
+		} catch (\PDOException $e) {
+			dd("Cannot connect to database!");
+		}
+
 		return view('welcome');
 	}
 
