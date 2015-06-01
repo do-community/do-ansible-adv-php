@@ -35,7 +35,7 @@ class WelcomeController extends Controller {
 		try {
 			$status = Status::whereKey('queue')->first();
 		} catch (\PDOException $e) {
-			dd("Cannot connect to database!");
+			dd($e->getMessage());
 		}
 
 		return view('welcome');
