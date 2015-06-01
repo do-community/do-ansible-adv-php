@@ -33,12 +33,16 @@ class WelcomeController extends Controller {
 	public function index()
 	{
 		try {
-			$status = Status::whereKey('queue')->first();
+			$queue = Status::whereKey('queue')->first();
+			$cron = Status::whereKey('cron')->first();
 		} catch (\PDOException $e) {
 			dd($e->getMessage());
 		}
 
-		return view('welcome');
+		$status = 'Queue: '.($queue ? 'YES' : 'NO').'<br>';
+		$status .= 'Cron: '.($cron ? 'YES' : 'NO');
+
+		return $status;
 	}
 
 }
